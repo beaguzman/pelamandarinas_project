@@ -23,6 +23,8 @@ Without escrow or strict fund tracking, there is no technical guarantee that the
 * **Frontend / Dashboard:** [p. ej. React / Next.js / Vue]
 * **SDK / Tools:** `@stellar/stellar-sdk`, [Soroban CLI, Freighter Wallet, etc.]
 
+📐 Arquitectura: [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md) · Contrato: [docs/CONTRATO.md](docs/CONTRATO.md) · Guion de la demo: [docs/DEMO.md](docs/DEMO.md)
+
 ### Stellar Features Used
 - **Soroban Smart Contracts:** Enforces spending rules and conditional releases between B2B entities.
 - **Stellar Assets / Tokens:** Transacting with stablecoins/tokens representing payment value.
