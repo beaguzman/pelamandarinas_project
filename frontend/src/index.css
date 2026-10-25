@@ -1,20 +1,30 @@
-@import url("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400..800&display=swap");
 
 :root {
-  --paper: #eceff3;
-  --surface: #f8f9fb;
-  --ink: #18212d;
-  --steel: #59636f;
-  --line: #c9d0d8;
-  --signal: #e2a114;
-  --gain: #1d7a4f;
-  --owe: #b23a2c;
+  --bg: #f1f4f6;
+  --surface: #ffffff;
+  --text: #0f1b24;
+  --muted: #5f6b76;
+  --line: #e2e7eb;
+
+  --accent: #0b7a8c;
+  --accent-strong: #08606e;
+  --accent-2: #2aa3b5;
+  --accent-3: #8fd3dd;
+  --accent-soft: #e6f4f6;
+
+  --gain: #15803d;
+  --gain-soft: #e8f5ec;
+  --owe: #b42318;
+  --owe-soft: #fbeceb;
+  --pending: #a15c07;
+  --pending-soft: #fdf3e2;
 
   color-scheme: light;
-  font-family: "Archivo", "Segoe UI", system-ui, sans-serif;
+  font-family: "Manrope", "Segoe UI", system-ui, sans-serif;
   line-height: 1.5;
-  color: var(--ink);
-  background: var(--paper);
+  color: var(--text);
+  background: var(--surface);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -35,17 +45,16 @@ input {
 }
 
 a {
-  color: inherit;
+  color: var(--accent);
 }
 
 :focus-visible {
-  outline: 3px solid var(--signal);
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
 @media (prefers-reduced-motion: reduce) {
   * {
     transition: none !important;
-    animation: none !important;
   }
 }
