@@ -1,0 +1,15 @@
+{
+    "network":  "testnet",
+    "rpcUrl":  "https://soroban-testnet.stellar.org",
+    "networkPassphrase":  "Test SDF Network ; September 2015",
+    "contractId":  "CDR3H3DNLWXRB46JUSFCBXSLFCU23RXYHJSFNWZQXQEGLXSKONT24AQY",
+    "tokenId":  "CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC",
+    "projectId":  1,
+    "accounts":  {
+                     "cliente":  "GAKAU6PDJBQK4R36LFGSDPMRWYFMYQG2SYXYZEFPG63XEOFD2S6VMWWT",
+                     "contratista":  "GDHEYO5C7PK226MNCYVDD2U5JVBOH5XE57TLM2O2Q5PTR4MTHSHGDZVA",
+                     "sub1":  "GAEXEG2BS5QSAI4FMGVSY6OT6WD5BCYUAJLYWCLV7M5G2NM5IBN3NELT",
+                     "sub2":  "GC7QCDSY3PK7BOTDS2VVDAJ56N6UTFBZ2W66VCE2FXEIXXEREHPM5YCC"
+                 },
+    "deployedAt":  "2026-10-25T19:05:20"
+}
