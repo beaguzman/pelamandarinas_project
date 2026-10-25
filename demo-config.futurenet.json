@@ -1,0 +1,15 @@
+{
+    "network":  "futurenet",
+    "rpcUrl":  "https://rpc-futurenet.stellar.org:443",
+    "networkPassphrase":  "Test SDF Future Network ; October 2022",
+    "contractId":  "CBKKKHEMPJ4XTYLB5ZSWVOFZXU3SAELGNSWQKDN2YKXYORRGW2TQT5MX",
+    "tokenId":  "CB64D3G7SM2RTH6JSGG34DDTFTQ5CFDKVDZJZSODMCX4NJ2HV2KN7OHT",
+    "projectId":  1,
+    "accounts":  {
+                     "cliente":  "GAKAU6PDJBQK4R36LFGSDPMRWYFMYQG2SYXYZEFPG63XEOFD2S6VMWWT",
+                     "contratista":  "GDHEYO5C7PK226MNCYVDD2U5JVBOH5XE57TLM2O2Q5PTR4MTHSHGDZVA",
+                     "sub1":  "GAEXEG2BS5QSAI4FMGVSY6OT6WD5BCYUAJLYWCLV7M5G2NM5IBN3NELT",
+                     "sub2":  "GC7QCDSY3PK7BOTDS2VVDAJ56N6UTFBZ2W66VCE2FXEIXXEREHPM5YCC"
+                 },
+    "deployedAt":  "2026-10-25T19:04:02"
+}
