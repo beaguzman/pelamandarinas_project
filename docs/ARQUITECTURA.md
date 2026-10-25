@@ -1,20 +1,20 @@
-# Arquitectura
+# Architecture
 
-Cascada registra facturas con doble firma, reparte pagos en cascada y compensa deudas cruzadas entre empresas de una cadena de subcontratación, todo en un contrato Soroban en **Stellar Testnet**.
+Cascada records double-signed invoices, splits payments down the subcontracting chain and nets out cross-debts between companies — all in a Soroban smart contract on **Stellar Testnet**.
 
-## Visión general
+## Overview
 
 ```mermaid
 flowchart LR
-    subgraph Usuarios["Empresas de la cadena"]
-        CL["Cliente"]
-        CO["Contratista"]
-        SU["Subcontratas<br/>sub1 · sub2"]
+    subgraph Users["Companies in the chain"]
+        CL["Client"]
+        CO["Contractor"]
+        SU["Subcontractors<br/>sub1 · sub2"]
     end
 
     subgraph Front["Frontend (React · Vercel)"]
-        UI["Panel tengo / debo<br/>Facturas · Pago en cascada"]
-        PKG["packages/cascada<br/>cliente JS/TS"]
+        UI["Owed / owing dashboard<br/>Invoices · Cascade payment"]
+        PKG["packages/cascada<br/>JS/TS client"]
         CFG[("demo-config.json")]
     end
 
@@ -22,64 +22,64 @@ flowchart LR
 
     subgraph Stellar["Stellar Testnet"]
         RPC["Stellar RPC"]
-        SC["Contrato Soroban<br/>Cascada"]
-        SAC["Token XLM<br/>(Stellar Asset Contract)"]
+        SC["Soroban contract<br/>Cascada"]
+        SAC["XLM token<br/>(Stellar Asset Contract)"]
     end
 
-    TW["Trustless Work<br/>escrow por hitos"]
+    TW["Trustless Work<br/>milestone escrow"]
 
     CL & CO & SU --> UI
     UI --> PKG
     CFG -.-> PKG
-    PKG -- "lecturas sin wallet<br/>(simulación)" --> RPC
-    PKG -- "firma de transacciones" --> W
-    W -- "tx firmada" --> RPC
+    PKG -- "reads without wallet<br/>(simulation)" --> RPC
+    PKG -- "transaction signing" --> W
+    W -- "signed tx" --> RPC
     RPC --> SC
-    SC -- "transfer en cascada<br/>y pago neto" --> SAC
-    SC -. "próximo paso" .-> TW
+    SC -- "cascade transfers<br/>and net payment" --> SAC
+    SC -. "next step" .-> TW
 ```
 
-| Pieza | Qué hace |
+| Component | What it does |
 |---|---|
-| **Frontend (React)** | Panel tengo/debo, facturas y pago en cascada. Muestra los datos sin conectar wallet. |
-| **`packages/cascada`** | Cliente JS/TS del contrato. Lee la interfaz del contrato desde la red (`contract.Client.from`). |
-| **Wallet** | Freighter / Stellar Wallets Kit. Firma solo las acciones (proponer, aceptar, pagar, compensar). |
-| **Stellar RPC** | Simula las lecturas y envía las transacciones firmadas. |
-| **Contrato Cascada** | Guarda proyectos, facturas y deudas; ejecuta el reparto y la compensación. |
-| **Token XLM (SAC)** | El contrato mueve los fondos con la interfaz de token estándar (SEP-41). |
-| **Trustless Work** | Siguiente paso: escrow por hitos antes del `release`. |
+| **Frontend (React)** | Owed/owing dashboard, invoices and cascade payment. Shows data without connecting a wallet. |
+| **`packages/cascada`** | JS/TS client for the contract. Reads the contract interface from the network (`contract.Client.from`). |
+| **Wallet** | Freighter / Stellar Wallets Kit. Signs only the actions (propose, accept, pay, settle). |
+| **Stellar RPC** | Simulates reads and submits signed transactions. |
+| **Cascada contract** | Stores projects, invoices and debts; executes the split and the netting. |
+| **XLM token (SAC)** | The contract moves funds through the standard token interface (SEP-41). |
+| **Trustless Work** | Next step: milestone escrow before `release`. |
 
-## Flujo principal
+## Main flow
 
 ```mermaid
 sequenceDiagram
     autonumber
-    actor S as Subcontrata
-    actor C as Contratista
-    actor CL as Cliente
-    participant K as Contrato Cascada
-    participant T as Token XLM (SAC)
+    actor S as Subcontractor
+    actor C as Contractor
+    actor CL as Client
+    participant K as Cascada contract
+    participant T as XLM token (SAC)
 
-    Note over S,K: 1 · Factura con doble firma
-    S->>K: propose_invoice(importe, hash del PDF)
-    K-->>S: id de factura (Proposed)
+    Note over S,K: 1 · Double-signed invoice
+    S->>K: propose_invoice(amount, PDF hash)
+    K-->>S: invoice id (Proposed)
     C->>K: accept_invoice(id)
-    K-->>C: Accepted → deuda reconocida on-chain
+    K-->>C: Accepted → debt recognized on-chain
 
-    Note over CL,T: 2 · Pago en cascada (una sola transacción)
-    CL->>K: release(proyecto, 100 XLM)
+    Note over CL,T: 2 · Cascade payment (a single transaction)
+    CL->>K: release(project, 100 XLM)
     K->>T: 30 XLM → sub1 (30 %)
     K->>T: 20 XLM → sub2 (20 %)
-    K->>T: 50 XLM → contratista (resto)
+    K->>T: 50 XLM → contractor (remainder)
 
-    Note over S,T: 3 · Compensación de deudas cruzadas
-    C->>K: settle(deudor = contratista, acreedor = sub1)
-    K->>K: 50 − 20 = 30 XLM netos
+    Note over S,T: 3 · Cross-debt netting
+    C->>K: settle(debtor = contractor, creditor = sub1)
+    K->>K: 50 − 20 = 30 XLM net
     K->>T: 30 XLM → sub1
 ```
 
-1. **Doble firma**: quien cobra propone la factura con el SHA-256 del PDF; solo cuando quien paga la acepta pasa a ser deuda on-chain.
-2. **Pago en cascada**: un único `release` reparte el dinero entre todas las subcontratas según su porcentaje, de forma atómica (o cobran todas o ninguna).
-3. **Compensación**: si dos empresas se deben dinero mutuamente, `settle` cancela ambas deudas y solo se transfiere la diferencia.
+1. **Double signature**: the party getting paid proposes the invoice with the SHA-256 hash of the PDF; it only becomes an on-chain debt once the payer accepts it.
+2. **Cascade payment**: a single `release` splits the money among all subcontractors according to their share, atomically (either everyone gets paid or no one does).
+3. **Netting**: if two companies owe each other money, `settle` cancels both debts and only the difference is transferred.
 
-Detalles del contrato desplegado: [CONTRATO.md](CONTRATO.md).
+Deployed contract details: [CONTRATO.md](CONTRATO.md).
