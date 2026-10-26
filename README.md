@@ -3,7 +3,7 @@
 > Transparent payments down the subcontracting chain, built on Stellar.
 > HackMeridian 2026 · Genesis · Track: **Composed**
 
-**Live demo:** [https://pelamandarinas.vercel.app/] · **Video:** [VIDEO_LINK] · **Contract (Testnet):** [`CDR3…4AQY`](https://stellar.expert/explorer/testnet/contract/CDR3H3DNLWXRB46JUSFCBXSLFCU23RXYHJSFNWZQXQEGLXSKONT24AQY)
+**Live demo:** https://pelamandarinas.vercel.app/ · **Video:** https://youtu.be/V6HyOq_4TCU · **Contract (Testnet):** [`CDR3…4AQY`](https://stellar.expert/explorer/testnet/contract/CDR3H3DNLWXRB46JUSFCBXSLFCU23RXYHJSFNWZQXQEGLXSKONT24AQY)
 
 ---
 
@@ -136,6 +136,6 @@ This creates and funds four demo accounts (`cliente`, `contratista`, `sub1`, `su
 
 | Name | Role |
 |---|---|
-| [Marco Díaz Vera] | Smart contracts |
-| [Abraham Romero Ardoy] | Frontend |
-| [Beatriz Guzmán Sánchez] | Integrations & deliverables |
+| Marco Díaz Vera | Smart contracts |
+| Abraham Romero Ardoy | Frontend |
+| Beatriz Guzmán Sánchez | Integrations & deliverables |
